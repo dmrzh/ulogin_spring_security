@@ -15,7 +15,7 @@ import java.net.URL;
 import java.net.URLConnection;
 
 /**
- * AuthenticationProvider проверяет корректность ulogin токена и заполняет principal ( ULoginUser )
+ * AuthenticationProvider проверяет корректность ulogin-токена и заполняет principal ( ULoginUser )
  */
 public class UloginAuthentifiactionProvider implements AuthenticationProvider {
     private static final Logger LOG= LoggerFactory.getLogger(UloginAuthentifiactionProvider.class);

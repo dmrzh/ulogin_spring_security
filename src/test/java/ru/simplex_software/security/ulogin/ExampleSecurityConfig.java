@@ -27,8 +27,6 @@ public class ExampleSecurityConfig extends WebSecurityConfigurerAdapter {
 
         HttpSecurity httpSecurity = http.
                 addFilterBefore(uloginFilter, AnonymousAuthenticationFilter.class);
-//        httpSecurity.csrf().disable();
-        //httpSecurity.headers().frameOptions().sameOrigin();
         httpSecurity.authorizeRequests().antMatchers("/login.html").permitAll()
                 .anyRequest().authenticated() ;
         httpSecurity.formLogin().loginPage("/login.html");
