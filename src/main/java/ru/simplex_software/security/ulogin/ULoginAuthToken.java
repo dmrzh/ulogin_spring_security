@@ -34,4 +34,9 @@ public class ULoginAuthToken extends AbstractAuthenticationToken {
     public Object getPrincipal() {
         return ULoginUser;
     }
+
+    @Override
+    public String getName() {
+        return ULoginUser.getIdentity();
+    }
 }

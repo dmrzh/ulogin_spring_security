@@ -6,13 +6,20 @@ package ru.simplex_software.security.ulogin;
 public class ULoginUser {
     private String identity;
     private String  profile;
-    private String photo;
+    private String firstName;
+    private String lastName;
+    private String nickname;
+    private String bithDate;
+    private Sex    sex;
+    private String phone;
+    private String city;
+    private String country;
 
-    private String   first_name;
-    private String  last_name;
     private String  email;
     private String  uid;
     private String  network;
+    private String  photo;
+    private String photoBig;
     private boolean   verified_email;
 
     public String getIdentity() {
@@ -39,20 +46,20 @@ public class ULoginUser {
         this.photo = photo;
     }
 
-    public String getFirst_name() {
-        return first_name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getLast_name() {
-        return last_name;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {
@@ -79,11 +86,75 @@ public class ULoginUser {
         this.network = network;
     }
 
+
     public boolean isVerified_email() {
         return verified_email;
     }
 
     public void setVerified_email(boolean verified_email) {
         this.verified_email = verified_email;
+    }
+
+    public String getBithDate() {
+        return bithDate;
+    }
+
+    public void setBithDate(String bithDate) {
+        this.bithDate = bithDate;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getPhotoBig() {
+        return photoBig;
+    }
+
+    public void setPhotoBig(String photoBig) {
+        this.photoBig = photoBig;
+    }
+
+    public Sex getSex() {
+        return sex;
+    }
+
+    public void setSex(Sex sex) {
+        this.sex = sex;
+    }
+
+    /**
+     * .
+     */
+    public static enum Sex {
+        NOT_DEFINED, FEMAIL, MALE
     }
 }

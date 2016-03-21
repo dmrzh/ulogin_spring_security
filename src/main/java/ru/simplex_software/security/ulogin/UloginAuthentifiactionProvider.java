@@ -9,8 +9,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 
 import javax.json.Json;
+import javax.json.JsonNumber;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
+import javax.json.JsonString;
 import java.net.URL;
 import java.net.URLConnection;
 
@@ -42,25 +44,61 @@ public class UloginAuthentifiactionProvider implements AuthenticationProvider {
             JsonReader jsonReader = Json.createReader(urlConnection.getInputStream());
             JsonObject obj = jsonReader.readObject();
 
-            if (obj == null) {
+            if (obj == null ) {
                 throw new BadCredentialsException("ulogin did't return json object");
+            }
+            if(obj.getJsonString("identity")==null){
+                throw new BadCredentialsException("ulogin did't return identity object");
             }
 
             String identity = obj.getJsonString("identity").getString();
             LOG.info(identity);
-            if (identity == null) {
-                throw new BadCredentialsException("null returned object");
-            }
 
             ULoginUser ULoginUser = new ULoginUser();
             ULoginUser.setIdentity(identity);
-            ULoginUser.setProfile(obj.getJsonString("profile").getString());
+            ULoginUser.setProfile(getStringProp(obj,"profile"));
+            ULoginUser.setFirstName(getStringProp(obj,"first_name"));
+            ULoginUser.setLastName(getStringProp(obj,"last_name"));
+            ULoginUser.setNickname(getStringProp(obj,"nickname"));
+            ULoginUser.setBithDate(getStringProp(obj,"bdate"));
+            ULoginUser.setPhone(getStringProp(obj,"phone"));
+            ULoginUser.setCity(getStringProp(obj,"city"));
+            ULoginUser.setCountry(getStringProp(obj,"country"));
+            ULoginUser.setEmail(getStringProp(obj,"email"));
+            ULoginUser.setNetwork(getStringProp(obj,"network"));
+            ULoginUser.setPhoto(getStringProp(obj,"photo"));
+            ULoginUser.setPhotoBig(getStringProp(obj,"photo_big"));
+            ULoginUser.setUid(getStringProp(obj,"uid"));
+
+            ULoginUser.setVerified_email("1".equals(getStringProp(obj,"verified_email")));
+            ULoginUser.setSex(getSex(obj));
+
             uLoginAuthenticationToken.setULoginUser(ULoginUser);
 
         }catch (Exception ex){
+            LOG.error(ex.getMessage(),ex);
             throw new AuthenticationServiceException(ex.getMessage());
         }
         return uLoginAuthenticationToken;
+    }
+
+    public ULoginUser.Sex getSex(JsonObject obj){
+        JsonNumber sexNum = obj.getJsonNumber("sex");
+        if(sexNum==null){
+            return null;
+        }
+        int i = sexNum.intValue();
+        if(i<0||i>3){
+            return null;
+        }
+        return ULoginUser.Sex.values()[i];
+    }
+    private String getStringProp(JsonObject obj, String prop) {
+        JsonString jsonString = obj.getJsonString(prop);
+        if(jsonString==null){
+            return null;
+        }
+        return jsonString.getString();
     }
 
 
