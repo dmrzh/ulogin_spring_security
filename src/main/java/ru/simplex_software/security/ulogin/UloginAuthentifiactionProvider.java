@@ -36,7 +36,9 @@ public class UloginAuthentifiactionProvider implements AuthenticationProvider {
         if (!supports(authentication.getClass())) {
             return null;
         }
+
         ULoginAuthToken uLoginAuthenticationToken=(ULoginAuthToken)authentication;
+
         try {
             URL uloginUrl = new URL("http://ulogin.ru/token.php?token=" + uLoginAuthenticationToken.getCredentials() + "&host="+host);
             URLConnection urlConnection = uloginUrl.openConnection();
@@ -74,8 +76,10 @@ public class UloginAuthentifiactionProvider implements AuthenticationProvider {
             ULoginUser.setSex(getSex(obj));
 
             uLoginAuthenticationToken.setULoginUser(ULoginUser);
+            uLoginAuthenticationToken.setAuthenticated(true);
 
         }catch (Exception ex){
+            uLoginAuthenticationToken.setAuthenticated(false);
             LOG.error(ex.getMessage(),ex);
             throw new AuthenticationServiceException(ex.getMessage());
         }
