@@ -6,7 +6,7 @@
 
     <groupId>ru.simplex_software</groupId>
     <artifactId>ulogin_spring_security</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.2</version>
     <name>ulogin-spring-security</name>
     <description>ulogin spring-security integration.</description>
     <licenses>
@@ -91,6 +91,18 @@
                 </executions>
             </plugin>
         </plugins>
+
     </build>
+
+    <distributionManagement>
+        <repository>
+            <id>simplex-ci</id>
+            <layout>default</layout>
+            <!--define url in settings xml-->
+            <url>${distributionManagementUrl}</url>
+        </repository>
+    </distributionManagement>
+
+
 
 </project>
